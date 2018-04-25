@@ -1,0 +1,116 @@
+# coding:utf-8
+'''
+@time:    Created on  2018-04-13 18:18:44
+@author:  Lanqing
+@Func:    read data and preprocess
+'''
+from config import *
+import numpy as np
+
+def divide_files_by_name(folder_name):
+    '''
+        read all txt files and divide files into different parts
+    '''
+    import os
+    dict_file = dict(zip(different_category, [[]] * len(different_category)))  # initial
+    for category in different_category:
+        dict_file[category] = []  # Essential here
+        for (root, _, files) in os.walk(folder_name):  # List all file names
+            for filename in files:  # 这里很容易出问题，会读大目录下全部文件
+                file_ = os.path.join(root, filename)
+                if category in filename:
+                    dict_file[category].append(file_)
+    return dict_file
+
+def read_single_txt_file(single_file_name):
+    '''
+    input data format:
+        1. each TXT is a sample file with label
+        2. each file include sample time 
+        3. each line in a file is a sample 
+    '''    
+    file_list = []
+    fid = open(single_file_name, 'r')
+    for line in fid:
+        line = line.strip('\n')
+        if ',' in line:
+            line = line.split(',')[:-1]  # exclude the last comma
+            file_list.append(line)
+    return np.array(file_list).astype(int)
+
+def fft_transform(vector):
+    if use_fft:
+        transformed = np.fft.fft(vector)  # FFT
+        transformed = transformed.reshape([transformed.shape[0] * transformed.shape[1], 1])  # reshape 
+        return transformed.real
+    else:
+        return vector
+
+def gauss_filter(X, sigma):
+    if use_gauss:
+        import scipy.ndimage
+        gaussian_X = scipy.ndimage.filters.gaussian_filter(X, sigma)
+        return gaussian_X
+    else:
+        return X
+
+def preprocess_One_Array(array_, category):
+    '''
+        1. Process after "vstack" 
+        2. receive an file array and corresponding category
+        3. return a clean array
+    '''    
+    # split window
+    # In order to reduce calculate cost, consider just using array operations.
+    final_list = []
+    rows, cols = array_.shape
+    i = 0
+    while(i * overlap_window + window_length < rows):  # attention here
+        tmp_window = array_[(i * overlap_window) : (i * overlap_window + window_length)]  # # main
+        tmp_window = tmp_window.reshape([window_length * cols, 1])  # reshape 
+        # gauss filter
+        tmp_window = gauss_filter(tmp_window, sigma)
+        tmp_window = fft_transform(tmp_window)
+        final_list.append(tmp_window)
+        i += 1
+    final_array = np.array(final_list)
+    final_array = final_array.reshape([final_array.shape[0], final_array.shape[1]])
+    print('%s final shape: \t' % category, final_array.shape)
+    np.savetxt(after_fft_data + str(category) + '.txt', final_array) 
+    return  final_array
+
+def read_data():
+    '''
+        1. loop all different files , read all into numpy array
+        2. label all data
+        3. construct train and test
+    '''
+
+    file_dict = divide_files_by_name(input_folder)
+    a_sample_array = read_single_txt_file(file_dict[list(file_dict.keys())[0]][0]) 
+    _, cols = a_sample_array.shape
+    for category in different_category:
+        file_array_one_category = np.array([[0]] * cols).T  # Initial, skill here
+        for one_category_single_file in file_dict[category]:  # No worry "Ordered",for it is list
+            
+            # print('processing %s file:' % one_category_single_file)
+            file_array = read_single_txt_file(one_category_single_file)
+            
+            # concentrate array belongs to the same category
+            print(file_array_one_category.shape, file_array.shape)
+            
+            file_array_one_category = np.vstack((file_array_one_category, file_array))  
+        print('%s category all: \t' % category, file_array_one_category[1], file_array_one_category.shape)   
+        
+        file_array_one_category = file_array_one_category[1:]  # exclude first line
+        preprocess_One_Array(file_array_one_category, category)
+    
+    return 
+
+#read_data() 
+
+# test gauss filter
+# X = np.array([[1, 2, 3], [4, 5, 6], [7, 7, 9], [12, 43, 56]])
+# X = X[0]
+# X = gauss_filter(X, 0.5)
+# print(X)
