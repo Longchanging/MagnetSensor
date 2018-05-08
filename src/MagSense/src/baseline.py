@@ -8,7 +8,7 @@ import time
 from sklearn import metrics, svm
 from sklearn.externals import joblib
 from sklearn.model_selection import ShuffleSplit, StratifiedKFold, train_test_split
-from config import test_ratio, train_tmp, predict_tmp, model_folder
+from config import test_ratio, train_tmp, predict_tmp, model_folder,whether_shuffle_train_and_test
 import numpy as np
 
 def validatePR(prediction_y_list, actual_y_list):
@@ -183,14 +183,14 @@ def split_train_Validate_test(data, vali_prcnt, test_prcnt):
     rs = 10
     target = data[:, -1]
     value = data[:, :-1]
-    X_train, X_test, y_train, y_test = train_test_split(value, target, test_size=vali_prcnt, random_state=rs)  # default 0.2
-    X_valdt, X_test, y_valdt, y_test = train_test_split(X_test, y_test, test_size=test_prcnt, random_state=rs)
+    X_train, X_test, y_train, y_test = train_test_split(value, target, test_size=vali_prcnt, random_state=rs,shuffle = whether_shuffle_train_and_test)  # default 0.2
+    X_valdt, X_test, y_valdt, y_test = train_test_split(X_test, y_test, test_size=test_prcnt, random_state=rs,shuffle = whether_shuffle_train_and_test)
     
     return X_train, X_test, y_train, y_test, X_valdt, y_valdt
 
 def train_test_evalation_split(data, label):
     from sklearn.model_selection import train_test_split
-    X_train, X_test, y_train, y_test = train_test_split(data, label, test_size=test_ratio, random_state=0, shuffle=True)
+    X_train, X_test, y_train, y_test = train_test_split(data, label, test_size=test_ratio, random_state=0, shuffle=whether_shuffle_train_and_test)
     # X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=evaluation_ratio, random_state=0)
     return X_train, X_test, y_train, y_test 
 
@@ -304,6 +304,17 @@ def baseline_trainTest():
     print ('Not mine: final test: model: %s,\n accuracy: %f' % (model_sort[0], s1), 'matrix:\n', f2)
 
     return model_sort, scores_Save, max_score
+
+def baseline_test():
+    data = np.loadtxt(test_tmp + 'After_pca_data.txt')
+    label = np.loadtxt(test_tmp + 'After_pca_label.txt')
+    best_model = joblib.load(model_folder + 'best_model')
+    labels_ = best_model.predict(data)
+    labels_ = labels_.astype(int)
+    print('Shape of predict data:', data.shape)
+    Precise, Recall, F1Score, Micro_average, accuracy_all = validatePR(labels_, list(label.astype(int))) 
+    np.savetxt(model_folder + 'best_model_test_test_labels.txt', labels_)
+    return 
 
 def baseline_predict():
     data = np.loadtxt(predict_tmp + 'After_pca_data.txt')

@@ -4,7 +4,8 @@
 @author:  Lanqing
 @Func:    testFCN.prepare_data
 '''
-from config import train_tmp, test_tmp, predict_tmp, batch_size, test_ratio, evaluation_ratio
+from config import train_tmp, test_tmp, predict_tmp, batch_size, test_ratio,\
+     evaluation_ratio,whether_shuffle_train_and_test,train_tmp_test
 import numpy as np
 
 def train_test_evalation_split(data, label): 
@@ -14,8 +15,8 @@ def train_test_evalation_split(data, label):
     :param label: train label
     '''
     from sklearn.model_selection import train_test_split
-    X_train, X_test, y_train, y_test = train_test_split(data, label, test_size=test_ratio, random_state=0, shuffle=True)
-    X_train, X_validate, y_train, y_validate = train_test_split(X_train, y_train, test_size=evaluation_ratio, random_state=0, shuffle=True)
+    X_train, X_test, y_train, y_test = train_test_split(data, label, test_size=test_ratio, random_state=0, shuffle=whether_shuffle_train_and_test)
+    X_train, X_validate, y_train, y_validate = train_test_split(X_train, y_train, test_size=evaluation_ratio, random_state=0, shuffle=whether_shuffle_train_and_test)
     return X_train, X_test, X_validate, y_train, y_test , y_validate
 
 def reshape_X(X, batch_size):
@@ -111,8 +112,20 @@ def train_test():
     np.save(train_tmp + 'y_train.npy', y_train)
     np.save(train_tmp + 'X_test.npy', X_validate)
     np.save(train_tmp + 'y_test.npy', y_validate)
-    np.save(test_tmp + 'X_test.npy', X_test)
-    np.save(test_tmp + 'y_test.npy', y_test)
+    np.save(train_tmp_test + 'X_test.npy', X_test)
+    np.save(train_tmp_test + 'y_test.npy', y_test)
+
+    return
+
+def test():
+    '''
+    main function to prepare data used in prediction
+    :param predict_data_folder: data folder that stores the prediction processes data
+    '''
+    # read data from train_test_data_folder + 'after_pca_data.txt' / 'after_pca_label.txt'
+    data, label = main_prepare(test_tmp)
+    np.save(test_tmp + 'X_test.npy', data)
+    np.save(test_tmp + 'y_test.npy', label)
 
     return
 
@@ -129,4 +142,5 @@ def predict():
 
 if __name__ == '__main__':
     train_test() 
+    test()
     predict()

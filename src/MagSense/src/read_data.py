@@ -144,6 +144,9 @@ if __name__ == '__main__':
     
     # train and test
     read__data(train_folder, train_keyword, train_data_rate, train_tmp)
+
+    # test
+    read__data(test_folder, test_keyword, 1, test_tmp)
     
     # predict
     read__data(predict_folder, predict_keyword, 1, predict_tmp)

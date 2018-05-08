@@ -86,7 +86,9 @@ def preprocess(train_test_validation_flag , different_category, after_pca_data):
         min_max = joblib.load(model_folder + "Min_Max.m")
         pca = joblib.load(model_folder + "PCA.m")
         
-        data = pca.transform(data)
+        if use_pca:
+        	data = pca.transform(data)
+        	
         data = min_max.transform(data) 
         
         if train_test_validation_flag == 'test':
@@ -104,6 +106,9 @@ if __name__ == '__main__':
     
     # train
     preprocess('train', train_keyword, train_tmp)
+
+    # test
+    preprocess('test', test_keyword, test_tmp)
         
     # predict
     preprocess('predict', predict_keyword, predict_tmp)

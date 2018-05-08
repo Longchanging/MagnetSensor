@@ -13,7 +13,7 @@ from keras.models import Model
 from numpy.random import seed
 
 from config import train_batch_size, MAX_NB_VARIABLES, batch_size, NB_CLASS, \
-    model_folder, train_tmp, test_tmp, predict_tmp, epochs
+    model_folder, train_tmp, train_tmp_test, test_tmp, predict_tmp, epochs
 import numpy as np
 from utils.keras_utils import train_model, evaluate_model, predict_model, set_trainable
 from utils.layer_utils import AttentionLSTM
@@ -97,18 +97,24 @@ def train_MODEL():
 def test_MODEL():
     model = generate_model()
     train_model_folder = model_folder + train_tmp.split('/')[-2] + "_weights.h5"
-    test_model_folder = model_folder + test_tmp.split('/')[-2] + "_weights.h5"
+    test_model_folder = model_folder + train_tmp_test.split('/')[-2] + "_weights.h5"
     if os.path.exists(test_model_folder):
         os.remove(test_model_folder)
     os.rename(train_model_folder, test_model_folder)
-    actual_y_list, prediction_y_list, accuracy, loss, re, conf_matrix = evaluate_model(model, folder_path=test_tmp, batch_size=train_batch_size)
+    actual_y_list, prediction_y_list, accuracy, loss, re, conf_matrix = evaluate_model(model, folder_path=train_tmp_test, batch_size=train_batch_size)
     result_saver_dict = result_saver('evaluate', actual_y_list, prediction_y_list, accuracy, loss, re, conf_matrix)
+    return
+
+def test_test_MODEL():
+    model = generate_model()
+    actual_y_list, prediction_y_list, accuracy, loss, re, conf_matrix = evaluate_model(model, folder_path=test_tmp, batch_size=train_batch_size)
+    result_saver_dict = result_saver('test', actual_y_list, prediction_y_list, accuracy, loss, re, conf_matrix)
     return
 
 def predict_MODEL():
     model = generate_model()
     train_model_folder = model_folder + train_tmp.split('/')[-2] + "_weights.h5"
-    test_model_folder = model_folder + test_tmp.split('/')[-2] + "_weights.h5"
+    test_model_folder = model_folder + train_tmp_test.split('/')[-2] + "_weights.h5"
     predict_model_folder = model_folder + predict_tmp.split('/')[-2] + "_weights.h5"
     if os.path.exists(predict_model_folder):
         os.remove(predict_model_folder)                               
@@ -120,4 +126,5 @@ def predict_MODEL():
 if __name__ == "__main__":
     train_MODEL()
     test_MODEL()
+    test_test_MODEL()
     predict_MODEL()
