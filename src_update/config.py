@@ -2,6 +2,7 @@
 # input and preprocess。Train 包括完整的train evaluation test, test 指的是完全相同的数据类型代入计算，predict指的是没有标签。
 test_keyword = ['aha']
 predict_keyword = ['test']
+base = '../data/' 
 
 # Preprocessing: PCA Gaussian FFT
 window_length, overlap_window = 2,1   # 窗口和滑动大小
@@ -15,5 +16,7 @@ epochs = 20
 batch_size, train_batch_size = 2, 2  # essential
 
 test_ratio, evaluation_ratio = 0.2, 0.1  # 划分训练、测试、验证集
-TRAINABLE , NB_CLASS = True, len(train_keyword)
+TRAINABLE  = True
 MAX_NB_VARIABLES = saved_dimension_after_pca if use_pca else window_length*20
+
+### 此处添加文件相关信息 ###

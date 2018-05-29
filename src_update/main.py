@@ -1,10 +1,19 @@
+# coding:utf-8
+# 
 import matplotlib as mpl
 mpl.use('Agg') 
 from matplotlib import pyplot as plt
+
+from setup import generate_configs
+
+# first generate new configs
+generate_configs()
+
 from baseline import  baseline_trainTest, baseline_predict
 from config import model_folder, train_folder, train_keyword, train_data_rate, train_tmp, \
     test_folder, test_keyword,test_tmp,base,\
     predict_folder, predict_keyword, predict_tmp
+
 import numpy as np
 from prepare import train_test, predict,test
 from preprocess import preprocess
