@@ -1,11 +1,9 @@
 import matplotlib as mpl
 mpl.use('Agg') 
 from matplotlib import pyplot as plt
-
-
 from baseline import  baseline_trainTest, baseline_predict
 from config import model_folder, train_folder, train_keyword, train_data_rate, train_tmp, \
-    test_folder, test_keyword,test_tmp,\
+    test_folder, test_keyword,test_tmp,base,\
     predict_folder, predict_keyword, predict_tmp
 import numpy as np
 from prepare import train_test, predict,test
@@ -82,14 +80,14 @@ def baseline():
     baseline_predict()
     return
 
-def run_commands():
+def read_commands():
+
     import sys
 
-    print('Please input your command: default train and test and predict and baseline and plot,')
-    print('you can also type like: "train_predict_baseline" or "train_baseline"')
-
     command = sys.argv[1]
-    
+
+    # 第二段程序 需要读用户传的命令是什么（训练、测试、预测、基线、模型）
+    # 使用命令行参数驱动主程序
     if command:
         if 'train' in command:
             main_train()
@@ -104,6 +102,7 @@ def run_commands():
         if 'check' in command:
             check_model()
 
+    # 参数为1时默认全部过程
     if command == '1':        
         main_train()
         main_test()
@@ -114,4 +113,4 @@ def run_commands():
         
     return
 
-run_commands()
+read_commands()
