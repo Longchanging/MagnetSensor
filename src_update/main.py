@@ -111,6 +111,7 @@ def run_commands():
         check_model()
         baseline()
         plot()
+        
     return
 
 run_commands()
