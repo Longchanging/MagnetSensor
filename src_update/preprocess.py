@@ -9,14 +9,16 @@ from config import use_pca, saved_dimension_after_pca, train_keyword, predict_ke
     model_folder, train_tmp, test_tmp, predict_tmp
 import numpy as np
 
-def one_hot_coding(data):
+def one_hot_coding(data,train_test_flag):
     from sklearn.preprocessing import OneHotEncoder, LabelBinarizer, LabelEncoder
     enc = LabelEncoder()
     out = enc.fit_transform(data)  
-    joblib.dump(enc, model_folder + "Label_Encoder.m")
+    if train_test_flag == 'train':
+        joblib.dump(enc, model_folder + "Label_Encoder.m")
     return  out, enc
 
 def min_max_scaler(train_data):
+
     # Min max scaler
     from sklearn import preprocessing
     r, c = train_data.shape
@@ -28,6 +30,7 @@ def min_max_scaler(train_data):
     train_data = train_data.reshape([r, c])
 
     joblib.dump(XX, model_folder + "Min_Max.m")
+
     return train_data
 
 def PCA(X):
@@ -83,7 +86,7 @@ def preprocess(train_test_validation_flag , different_category, after_pca_data):
     if train_test_validation_flag == 'train' :
         data = PCA(data)
         data = min_max_scaler(data) 
-        label, _ = one_hot_coding(label)  # not really 'one-hot',haha
+        label, _ = one_hot_coding(label,'train')  # not really 'one-hot',haha
         
     elif train_test_validation_flag == 'test' or train_test_validation_flag == 'predict':
         
@@ -99,14 +102,19 @@ def preprocess(train_test_validation_flag , different_category, after_pca_data):
         # reshape and min-max
         train_max = float(min_max.data_max_)
         train_min = float(min_max.data_min_)
+
         # test or new data
         r, c = data.shape
         data = data.reshape([r * c, 1])
+
+        # find the max and min of train and test data
         test_max = np.max(data)
         test_min = np.min(data)
         all_max = train_max if train_max >= test_max else test_max
         all_min = train_min if train_min <= test_min else test_min
+
         print('Check max and min: train_max,train_min,test_max,test_min,all_max,all_min')
+
         print(train_max,train_min,'\t',test_max,test_min,'\t',all_max,all_min)
         data = (data - all_min)/(all_max-all_min)
         data = data.reshape([r, c])
@@ -114,12 +122,13 @@ def preprocess(train_test_validation_flag , different_category, after_pca_data):
         if train_test_validation_flag == 'test':
             label = label_encoder.transform(label)  # not really 'one-hot',haha
         elif train_test_validation_flag == 'predict' :
-            label, _ = one_hot_coding(label)  # not really 'one-hot',haha
+            label, _ = one_hot_coding(label,'predict')  # not really 'one-hot',haha
     
     print('final data: %d rows * %d cols' % (data.shape[0], data.shape[1]))    
     print('all data after pca saved to folder: %s\n' % after_pca_data)
     np.savetxt(after_pca_data + 'After_pca_data.txt', data)
     np.savetxt(after_pca_data + 'After_pca_label.txt', label)
+
     return  
 
 if __name__ == '__main__':

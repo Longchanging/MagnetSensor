@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 import pandas as pd
 import os, sys
 
+#  设置参数
 base = ''
 folders = [base + '180517/', base + '180518/']
 traditional_predict_file = 'best_model_predict_labels.txt'
@@ -14,6 +15,7 @@ fcn_predict_file = 'Predict_final_result.txt'
 label_dictional_model = "Label_Encoder.m"
 
 def check_model(model_file):
+    # 打印dict模型
     from sklearn.externals import joblib
     label_encoder = joblib.load(model_file)
     print('输出类别对应文件名关系：\n', label_encoder.classes_, '\n')
