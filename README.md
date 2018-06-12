@@ -88,8 +88,8 @@ src V2.1 data explore,try plot raw data
 
 ## V3.0
 
-src V3.0 Add main,setup,argv
-src V3.0 Combine fcn&baseline,call together
+src V3.0 Add main,setup,argv,combine fcn&baseline,call together
+
 Note: From this version, folder structure is quiet different.  
 
 	baseline.py   
