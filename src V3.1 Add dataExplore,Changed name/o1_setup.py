@@ -69,18 +69,18 @@ def generate_configs():
 
 	# 先检查原文件是否含有冗余信息，有则删掉
 	import shutil
-	with open('config.py', 'r', encoding='utf-8') as f:
-		with open('config.py.new', 'w', encoding='utf-8') as g:
+	with open('o2_config.py', 'r', encoding='utf-8') as f:
+		with open('o2_config.py.new', 'w', encoding='utf-8') as g:
 			for line in f.readlines():
 				if "train_keyword" not in line and "train_folder" not in line and "test_folder" not in line \
 	                and "predict_folder" not in line and "train_tmp" not in line and "test_tmp" not in line \
 	                and "predict_tmp" not in line and "train_tmp_test" not in line and "model_folder" not in line \
 	                and "NB_CLASS" not in line:             
 					g.write(line)
-	shutil.move('config.py.new', 'config.py')
+	shutil.move('o2_config.py.new', 'o2_config.py')
 
 	# 将更改写入config 文件
-	fid = open('config.py', 'a')
+	fid = open('o2_config.py', 'a')
 	for i in range(10):
 		fid.write(dict_configs['str' + str(i + 1)])
 		fid.write('\n')

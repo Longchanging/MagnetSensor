@@ -20,13 +20,13 @@ TRAINABLE = True
 MAX_NB_VARIABLES = saved_dimension_after_pca if use_pca else window_length * 20
 
 ### 此处添加文件相关信息 ###
-train_keyword = ['0-netmusic', '1-youkuapp', '2-tencentweb', '4-surfingweb']
-train_folder = '../data//input//data_0509/'
-test_folder = '../data//input//data_0509/'
-predict_folder = '../data//input//data_0509/'
-train_tmp = '../data//data_0509//tmp/train/'
-test_tmp = '../data//data_0509//tmp/test/'
-predict_tmp = '../data//data_0509//tmp/predict/'
-train_tmp_test = '../data//data_0509//tmp/train/test/'
-model_folder = '../data//data_0509//model/'
+train_keyword = ['01_offline_video', '02_chrome_surfing', '03_aqiyi', '04_game_plants']
+train_folder = '../data//input//20180518/'
+test_folder = '../data//input//20180518/'
+predict_folder = '../data//input//20180518/'
+train_tmp = '../data//20180518//tmp/train/'
+test_tmp = '../data//20180518//tmp/test/'
+predict_tmp = '../data//20180518//tmp/predict/'
+train_tmp_test = '../data//20180518//tmp/train/test/'
+model_folder = '../data//20180518//model/'
 NB_CLASS = 4

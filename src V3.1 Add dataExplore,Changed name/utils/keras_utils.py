@@ -10,11 +10,11 @@ from keras.preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical
 from sklearn.preprocessing import LabelEncoder
 
-from config import model_folder, MAX_NB_VARIABLES
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from src.o2_config import model_folder, MAX_NB_VARIABLES
 from utils.generic_utils import load_train_dataset_at, load_test_dataset_at, calculate_dataset_metrics, cutoff_choice, \
                                 cutoff_sequence
 
@@ -124,7 +124,7 @@ def get_matrix_OneHot_predict(re):
     prediction_y_list = []
     for item in re:
         prediction_y_list.append(np.argmax(item))
-    #print('\nPredict Labels: \n', prediction_y_list)
+    # print('\nPredict Labels: \n', prediction_y_list)
     
     return prediction_y_list
 
