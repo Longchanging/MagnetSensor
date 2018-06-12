@@ -39,8 +39,8 @@ src V1.0 FCN Model
 	mydata_model.py     (√)
 	predict.py          (√)
 	prepare_data.py     (√)
-
-        [LSTM folder]
+	
+	[LSTM folder]
 	mainly other_classifier.py   
 	config.py     
 	LSTM.py           
@@ -48,11 +48,13 @@ src V1.0 FCN Model
 	preprocess.py     
 	read_data.py       
 
-        config.py          config just of FCN
+	config.py          config just of FCN
 	mydata_model.py    main FCN model
 	predict.py         use FCN to predict
 	prepare_data.py    prepare data for FCN
-        [LSTM folder]      use them to generate data for FCN and baseline
+	
+	
+	[LSTM folder]      use them to generate data for FCN and baseline
 
 [V2.0]
 
@@ -66,7 +68,7 @@ src V2.0 feature Extraction
 	train_test.py            (√)
 
         This folder is forked here 
-        	https://www.zhihu.com/question/41068341?sort=created
+        https://www.zhihu.com/question/41068341?sort=created
 	Not yet completed,just a trial.
 
 [V2.1]
@@ -77,9 +79,9 @@ src V2.1 data explore,try plot raw data
 	sample_test.py           (√)
 	test_smooth.py           (√)
 
-        Failure trial,try plot normal raw data.
-        To explore more about min-max model,and others.
-        Finally achieved in V3.1  
+	Failure trial,try plot normal raw data.
+	To explore more about min-max model,and others.
+	Finally achieved in V3.1  
 
 
 [V3.0]
@@ -98,9 +100,9 @@ Note: From this version, folder structure is quiet different.
 	setup.py            (√)
 	train_test.py
 
-	main.py      Combine all functions together
-                     Entrance of all
-                     argv included to get user command like 'train/test/predict' 
+	main.py         Combine all functions together
+			Entrance of all
+			argv included to get user command like 'train/test/predict' 
 
 	setup.py     Generate configs for config.py 
 	   
@@ -109,9 +111,8 @@ Note: From this version, folder structure is quiet different.
 
  src V4.1 Changed package name for convenience
 
-        o0_DataExploer.py  mainly to explore the data and plot some pdfs.
+	o0_DataExploer.py  mainly to explore the data and plot some pdfs.
  
-
 	o0_DataExploer.py   (√)
 	o0_dataExplore.py   (√)
 	o0_plot.py          (√)
