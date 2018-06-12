@@ -4,7 +4,7 @@ import matplotlib as mpl
 import matplotlib.pylab as plt
 import numpy as np
 import pandas as pd
-from src.o2_config import MAX_NB_VARIABLES
+from o2_config import MAX_NB_VARIABLES
 
 mpl.style.use('seaborn-paper')
 

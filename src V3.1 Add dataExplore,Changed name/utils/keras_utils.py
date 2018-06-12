@@ -14,7 +14,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from src.o2_config import model_folder, MAX_NB_VARIABLES
+from o2_config import model_folder, MAX_NB_VARIABLES
 from utils.generic_utils import load_train_dataset_at, load_test_dataset_at, calculate_dataset_metrics, cutoff_choice, \
                                 cutoff_sequence
 

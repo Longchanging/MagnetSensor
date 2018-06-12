@@ -10,8 +10,8 @@ from sklearn.utils import shuffle
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from src.config import train_batch_size, train_tmp, train_tmp_test, predict_tmp, epochs
-from src.train_test import generate_model, train_model, evaluate_model, predict_model
+from config import train_batch_size, train_tmp, train_tmp_test, predict_tmp, epochs
+from train_test import generate_model, train_model, evaluate_model, predict_model
 
 # config 
 folder = '../data/input/20180512/'

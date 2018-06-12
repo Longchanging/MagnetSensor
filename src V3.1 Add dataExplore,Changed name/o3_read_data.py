@@ -6,7 +6,7 @@
 '''
 import numpy as np
 import pandas as pd
-from src.o2_config import train_folder, test_folder, predict_folder, \
+from o2_config import train_folder, test_folder, predict_folder, \
     train_tmp, test_tmp, predict_tmp, \
     train_keyword, predict_keyword, \
     window_length, overlap_window, \

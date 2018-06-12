@@ -2,15 +2,15 @@
 # 
 from matplotlib import pyplot as plt
 import numpy as np
-from src.o1_setup import generate_configs
-from src.o2_config import model_folder, train_folder, train_keyword, train_data_rate, train_tmp, \
+from o1_setup import generate_configs
+from o2_config import model_folder, train_folder, train_keyword, train_data_rate, train_tmp, \
     test_folder, test_keyword, test_tmp, base, \
     predict_folder, predict_keyword, predict_tmp
-from src.o3_read_data import read__data
-from src.o4_preprocess import preprocess
-from src.o5_prepare import train_test, predict, test
-from src.o6_train_test import train_MODEL, test_MODEL, predict_MODEL, test_test_MODEL
-from src.o7_baseline import  baseline_trainTest, baseline_predict
+from o3_read_data import read__data
+from o4_preprocess import preprocess
+from o5_prepare import train_test, predict, test
+from o6_train_test import train_MODEL, test_MODEL, predict_MODEL, test_test_MODEL
+from o7_baseline import  baseline_trainTest, baseline_predict
 
 # mpl.use('Agg') 
 # first generate new configs

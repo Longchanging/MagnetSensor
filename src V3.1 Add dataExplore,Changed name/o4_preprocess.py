@@ -6,7 +6,7 @@
 '''
 from sklearn.externals import joblib
 import numpy as np
-from src.o2_config import use_pca, saved_dimension_after_pca, train_keyword, predict_keyword , \
+from o2_config import use_pca, saved_dimension_after_pca, train_keyword, predict_keyword , \
     model_folder, train_tmp, test_tmp, predict_tmp, test_keyword
 
 
