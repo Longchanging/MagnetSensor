@@ -8,9 +8,9 @@ Hao Pan,STTU
 
 ## Folder
 
-##Source code version description##
+Source code version description 
 
-##V0.0 LSTM&baseline##
+## V0.0 LSTM&baseline 
 
 src V0.0 Initial LSTM&baseline
 
@@ -30,17 +30,17 @@ src V0.0 Initial LSTM&baseline
 
 
 
-##V1.0##
+## V1.0 
 
 src V1.0 FCN Model
 
-	#FCN folder#
+	# FCN folder 
 	config.py           (√)
 	mydata_model.py     (√)
 	predict.py          (√)
 	prepare_data.py     (√)
 	
-	#LSTM folder#
+	# LSTM folder 
 	mainly other_classifier.py   
 	config.py     
 	LSTM.py           
@@ -54,9 +54,9 @@ src V1.0 FCN Model
 	prepare_data.py    prepare data for FCN
 	
 	
-	#LSTM folder#      use them to generate data for FCN and baseline
+	# LSTM folder      use them to generate data for FCN and baseline
 
-##V2.0##
+## V2.0 
 
 src V2.0 feature Extraction
 
@@ -73,7 +73,7 @@ This folder is forked here
 	
 Not yet completed,just a trial.
 
-##V2.1##
+## V2.1 
 
 src V2.1 data explore,try plot raw data
 
@@ -86,7 +86,7 @@ src V2.1 data explore,try plot raw data
 	Finally achieved in V3.1  
 
 
-##V3.0##
+## V3.0
 
 src V3.0 Add main,setup,argv
 src V3.0 Combine fcn&baseline,call together
@@ -109,9 +109,9 @@ Note: From this version, folder structure is quiet different.
 	setup.py     Generate configs for config.py 
 	   
 
-##V3.1##
+## V3.1 
 
- src V4.1 Changed package name for convenience
+src V3.1 Changed package name for convenience
 
 	o0_DataExploer.py  mainly to explore the data and plot some pdfs.
  
