@@ -93,7 +93,6 @@ def squeeze_excite_block(input):
     return se
 
 def result_saver(name, actual_y_list, prediction_y_list, accuracy, loss, re, conf_matrix):
-    import json
     result_saver_dict = {}
     result_saver_dict['actual_y_list'] = actual_y_list
     result_saver_dict['prediction_y_list'] = prediction_y_list

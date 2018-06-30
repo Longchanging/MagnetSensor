@@ -62,15 +62,15 @@ def read_commands():
     # 第二段程序 需要读用户传的命令是什么（训练、测试、预测、基线、模型）
     # 使用命令行参数驱动主程序
     
-    read__data(train_folder, train_keyword, train_data_rate, train_tmp)
-    preprocess('train', train_keyword, train_tmp)
-    main_prepare()
-
-    train_lstm() 
-    train_fcn()
-    baseline_trainTest()
+    read__data(train_folder, train_keyword, train_data_rate, train_tmp)  #### 读数据
+    preprocess('train', train_keyword, train_tmp)  #### 预处理
+    main_prepare()  #### 准备LSTM系模型输入
+ 
+    train_lstm()  #### 训练LSTM模型
+    train_fcn()  #### 训练 FCN模型
+    baseline_trainTest()  #### 训练KNN、RF等传统模型
       
-    # check_model()
-    # plot()
+    # check_model()  #### 输出 dict对应的标签
+    # plot()  #### 绘制图表
 
 read_commands()
