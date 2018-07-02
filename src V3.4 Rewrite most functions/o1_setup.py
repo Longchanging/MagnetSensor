@@ -113,8 +113,21 @@ def generate_configs():
 			'16_picture_win3d', '17_chrome_surfing', '18_firefox_surfing', '19_chrome_gmail_work', \
 			'20_chrome_twitter', '21_chrome_youtube', '22_chrome_amazon', '23_chrome_agar'],
 	
-	'zhoujie_20180530':['05_work_word', '06_work_excel', '07_work_ppt', '08_social_wechat', '09_social_qq'],
-					
+	'zhoujie_20180530':['05_work_word', '06_work_excel', '07_work_ppt', '08_social_wechat', \
+			'09_social_qq', '13_game_zuma', '14_game_candy', '15_game_minecraft', \
+			'16_picture_win3d', '17_chrome_surfing', '18_firefox_surfing', '19_chrome_gmail_work', \
+			'20_chrome_twitter', '22_chrome_amazon', '23_chrome_agar'],
+	'fangliang_20180531':['05_work_word', '06_work_excel', '07_work_ppt', '08_social_wechat', \
+			'09_social_qq', '13_game_zuma', '14_game_candy', '15_game_minecraft', \
+			'16_picture_win3d', '17_chrome_surfing', '18_firefox_surfing', '19_chrome_gmail_work', \
+			'20_chrome_twitter', '21_chrome_youtube', '22_chrome_amazon', '23_chrome_agar'],
+	'apps':['05_work_word', '06_work_excel', '07_work_ppt', \
+			'08_social_wechat', '09_social_qq', \
+			'13_game_zuma', '14_game_candy', '15_game_minecraft', \
+			'16_picture_win3d', '17_chrome_surfing', '18_firefox_surfing', \
+			'19_chrome_gmail_work', '20_chrome_twitter', \
+			'22_chrome_amazon', '23_chrome_agar'],
+	'users':['lanqing', 'panhao', 'wangzhong', 'fangliang', 'zhoujie', 'weilun', 'yeqi']
 	}
 
 	print('\n -------------------------------------------------------------------- \n')

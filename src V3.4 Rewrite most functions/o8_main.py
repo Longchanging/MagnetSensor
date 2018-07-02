@@ -65,10 +65,10 @@ def read_commands():
     read__data(train_folder, train_keyword, train_data_rate, train_tmp)  #### 读数据
     preprocess('train', train_keyword, train_tmp)  #### 预处理
     main_prepare()  #### 准备LSTM系模型输入
- 
+
+    baseline_trainTest()  #### 训练KNN、RF等传统模型
     train_lstm()  #### 训练LSTM模型
     train_fcn()  #### 训练 FCN模型
-    baseline_trainTest()  #### 训练KNN、RF等传统模型
       
     # check_model()  #### 输出 dict对应的标签
     # plot()  #### 绘制图表
