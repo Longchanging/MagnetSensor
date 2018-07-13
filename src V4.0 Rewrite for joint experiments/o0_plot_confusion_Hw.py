@@ -253,14 +253,17 @@ def plot_window_scale():
 
     return
 
+def plot_raw_data_():
+    return
 if __name__ == '__main__':
     
-    plot_window_scale()
-    plot_predict_labels()
-    plot_multi_algorithms()
-    plot_accuracy()
-    plot_platform()
-    plot_chrome_5()
-    plot_apps_21()
-    plot_stetes_9()
-    plot_diff_user()
+    #     plot_window_scale()
+    #     plot_predict_labels()
+    #     plot_multi_algorithms()
+    #     plot_accuracy()
+    #     plot_platform()
+    #     plot_chrome_5()
+    #     plot_apps_21()
+    #     plot_stetes_9()
+    #     plot_diff_user()
+    pass

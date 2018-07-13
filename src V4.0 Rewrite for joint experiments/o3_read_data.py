@@ -5,33 +5,43 @@
 @Func:    read data and preprocess
 '''
 
-import pickle
+def get_config():
+    
+    import pickle
+    
+    ##### 加载参数，全局变量
+    with open('config.pkl', 'rb') as f:  # Python 3: open(..., 'rb')
+            
+        dict_all_parameters = pickle.load(f)
+    
+        train_keyword = dict_all_parameters['train_keyword']
+        train_folder = dict_all_parameters['train_folder']
+        test_folder = dict_all_parameters['test_folder']
+        predict_folder = dict_all_parameters['predict_folder']
+        train_tmp = dict_all_parameters['train_tmp']
+        model_folder = dict_all_parameters['model_folder'] 
+        NB_CLASS = dict_all_parameters['NB_CLASS'] 
+        sample_rate = dict_all_parameters['sample_rate'] 
+        saved_dimension_after_pca = dict_all_parameters['saved_dimension_after_pca'] 
+        sigma = dict_all_parameters['sigma'] 
+        use_gauss = dict_all_parameters['use_gauss'] 
+        use_pca = dict_all_parameters['use_pca'] 
+        use_fft = dict_all_parameters['use_fft'] 
+        overlap_window = dict_all_parameters['overlap_window'] 
+        window_length = dict_all_parameters['window_length'] 
+        whether_shuffle_train_and_test = dict_all_parameters['whether_shuffle_train_and_test'] 
 
-##### 加载参数，全局变量
-with open('config.pkl', 'rb') as f:  # Python 3: open(..., 'rb')
-        
-    dict_all_parameters = pickle.load(f)
+    return train_keyword, train_folder, test_folder, predict_folder, train_tmp, model_folder, \
+        NB_CLASS, sample_rate, saved_dimension_after_pca, sigma, use_gauss, use_pca, use_fft, overlap_window, window_length, whether_shuffle_train_and_test
 
-    train_keyword = dict_all_parameters['train_keyword']
-    train_folder = dict_all_parameters['train_folder']
-    test_folder = dict_all_parameters['test_folder']
-    predict_folder = dict_all_parameters['predict_folder']
-    train_tmp = dict_all_parameters['train_tmp']
-    train_keyword = dict_all_parameters['train_keyword'] 
-    model_folder = dict_all_parameters['model_folder'] 
-    NB_CLASS = dict_all_parameters['NB_CLASS'] 
-    sample_rate = dict_all_parameters['sample_rate'] 
-    saved_dimension_after_pca = dict_all_parameters['saved_dimension_after_pca'] 
-    sigma = dict_all_parameters['sigma'] 
-    use_gauss = dict_all_parameters['use_gauss'] 
-    use_pca = dict_all_parameters['use_pca'] 
-    use_fft = dict_all_parameters['use_fft'] 
-    overlap_window = dict_all_parameters['overlap_window'] 
-    window_length = dict_all_parameters['window_length'] 
-    whether_shuffle_train_and_test = dict_all_parameters['whether_shuffle_train_and_test'] 
+train_keyword, train_folder, test_folder, predict_folder, train_tmp, model_folder, \
+        NB_CLASS, sample_rate, saved_dimension_after_pca, sigma, use_gauss, use_pca, use_fft, overlap_window, \
+        window_length, whether_shuffle_train_and_test = get_config()
     
 import numpy as np
 import pandas as pd
+
+print('train_keyword in o3_read folder: %s' % train_keyword)
 
 def divide_files_by_name(folder_name, different_category):
     '''
@@ -201,4 +211,4 @@ def read__data(input_folder, different_category, percent2read_afterPCA_data, aft
 if __name__ == '__main__':
     
     # train and test
-    read__data(train_folder, train_keyword, train_data_rate, train_tmp)
+    read__data(train_folder, train_keyword, 1, train_tmp)

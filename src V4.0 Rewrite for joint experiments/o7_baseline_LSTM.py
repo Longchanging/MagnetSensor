@@ -112,20 +112,20 @@ def train_lstm():
     skf_cv = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=10)
     scores_accu, scores_f1 = [], []
 
-    ############# 十折交叉验证
-    for train_index, test_index in skf_cv.split(X, y):
+    for i in range(2):
                 
-        X_train, X_test = X[train_index], X[test_index]
-        y_train, y_test = y[train_index], y[test_index]
+        # X_train, X_test = X[train_index], X[test_index]
+        # y_train, y_test = y[train_index], y[test_index]
         
+        print('\n##########第%d次训练############\n' % i)
         print(dict(Counter(y_train[:, 0])))
         weight_dict = get_weight(list(y_train[:, 0]))
         
-        y_train = keras.utils.to_categorical(y_train)
-        y_test = keras.utils.to_categorical(y_test)
+        y_train_new = keras.utils.to_categorical(y_train)
+        y_test = keras.utils.to_categorical(y_test_left)
         
-        model.fit(X_train, y_train, batch_size=train_batch_size, epochs=epochs, verbose=1, callbacks=callback_list)  # , class_weight=weight_dict)
-        predict_y = model.predict(X_test) 
+        model.fit(X_train, y_train_new, batch_size=train_batch_size, epochs=200, verbose=1)  # validation_data=(X_validate, y_validate))  # , class_weight=weight_dict)
+        predict_y = model.predict(X_test_left) 
         predict_y = oneHot2List(predict_y)
         actual_y = oneHot2List(y_test)
         

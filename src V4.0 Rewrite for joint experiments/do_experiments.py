@@ -8,25 +8,67 @@ from src.o1_setup import generate_configs
 
 ####### 存储所有参数并写入文件
 model_folder_ = '../data/model/'
-train_info_file = model_folder_ + 'train_info.txt'
+train_info_file = model_folder_ + 'train_info_all.txt'
 dict_all_parameters = {}
 train_info = {}
 
 ####### 定义需要变更的参数
 
-train_folders = {   'platform':['mac_', 'shenzhou_', 'hp_', 'windows_'],
+train_folders = {     
+                    'platform':['mac_', 'shenzhou_', 'hp_', 'windows_'],
                     'apps':['05_work_word', '06_work_excel', '07_work_ppt', \
                             '08_social_wechat', '09_social_qq', \
                             '13_game_zuma', '14_game_candy', '15_game_minecraft', \
                             '16_picture_win3d', '17_chrome_surfing', '18_firefox_surfing', \
                             '19_chrome_gmail_work', '20_chrome_twitter', \
                             '22_chrome_amazon', '23_chrome_agar'],
-                    'users':['lanqing', 'panhao', 'wangzhong', 'fangliang', 'zhoujie', 'weilun', 'yeqi']}
+                    'users':['lanqing', 'panhao', 'wangzhong', 'fangliang', 'zhoujie', 'weilun', 'yeqi'],
+                    'all':['fangliang__05_work_word', 'fangliang__06_work_excel', 'fangliang__07_work_ppt',
+                            'fangliang__08_social_wechat', 'fangliang__09_social_qq', 'fangliang__13_game_zuma',
+                            'fangliang__14_game_candy', 'fangliang__15_game_minecraft', 'fangliang__16_picture_win3d',
+                            'fangliang__17_chrome_surfing', 'fangliang__18_firefox_surfing', 'fangliang__19_chrome_gmail_work',
+                            'fangliang__20_chrome_twitter', 'fangliang__22_chrome_amazon', 'fangliang__23_chrome_agar',
+                            'lanqing__05_work_word', 'lanqing__06_work_excel', 'lanqing__07_work_ppt', 'lanqing__08_social_wechat',
+                            'lanqing__09_social_qq', 'lanqing__13_game_zuma', 'lanqing__14_game_candy', 'lanqing__15_game_minecraft',
+                            'lanqing__16_picture_win3d', 'lanqing__17_chrome_surfing', 'lanqing__18_firefox_surfing',
+                            'lanqing__19_chrome_gmail_work', 'lanqing__20_chrome_twitter', 'lanqing__22_chrome_amazon',
+                            'lanqing__23_chrome_agar', 'panhao__05_work_word', 'panhao__06_work_excel', 'panhao__07_work_ppt',
+                            'panhao__08_social_wechat', 'panhao__09_social_qq', 'panhao__13_game_zuma', 'panhao__14_game_candy',
+                            'panhao__15_game_minecraft', 'panhao__16_picture_win3d', 'panhao__17_chrome_surfing', 'panhao__18_firefox_surfing',
+                            'panhao__19_chrome_gmail_work', 'panhao__20_chrome_twitter', 'panhao__22_chrome_amazon', 'panhao__23_chrome_agar',
+                            'wangzhong__05_work_word', 'wangzhong__06_work_excel', 'wangzhong__07_work_ppt', 'wangzhong__08_social_wechat',
+                            'wangzhong__09_social_qq', 'wangzhong__13_game_zuma', 'wangzhong__14_game_candy', 'wangzhong__15_game_minecraft',
+                            'wangzhong__16_picture_win3d', 'wangzhong__17_chrome_surfing', 'wangzhong__18_firefox_surfing',
+                            'wangzhong__19_chrome_gmail_work', \
+                            'wangzhong__20_chrome_twitter', 'wangzhong__22_chrome_amazon', 'wangzhong__23_chrome_agar', 'weilun__05_work_word',
+                            'weilun__06_work_excel', 'weilun__07_work_ppt', 'weilun__08_social_wechat', 'weilun__09_social_qq',
+                            'weilun__13_game_zuma', \
+                            'weilun__14_game_candy', 'weilun__15_game_minecraft', 'weilun__16_picture_win3d', 'weilun__17_chrome_surfing',
+                            'weilun__18_firefox_surfing', 'weilun__19_chrome_gmail_work', 'weilun__20_chrome_twitter', 'weilun__22_chrome_amazon',
+                            'weilun__23_chrome_agar', 'yeqi__05_work_word', 'yeqi__06_work_excel', 'yeqi__07_work_ppt', 'yeqi__08_social_wechat',
+                            'yeqi__09_social_qq', 'yeqi__13_game_zuma', 'yeqi__14_game_candy', 'yeqi__15_game_minecraft', 'yeqi__16_picture_win3d',
+                            'yeqi__17_chrome_surfing', 'yeqi__18_firefox_surfing', 'yeqi__19_chrome_gmail_work', 'yeqi__20_chrome_twitter',
+                            'yeqi__22_chrome_amazon', 'yeqi__23_chrome_agar', 'zhoujie__05_work_word', 'zhoujie__06_work_excel',
+                            'zhoujie__07_work_ppt', 'zhoujie__08_social_wechat', 'zhoujie__09_social_qq', 'zhoujie__13_game_zuma',
+                            'zhoujie__14_game_candy', 'zhoujie__15_game_minecraft', 'zhoujie__16_picture_win3d', 'zhoujie__17_chrome_surfing',
+                            'zhoujie__18_firefox_surfing', 'zhoujie__19_chrome_gmail_work',
+                            'zhoujie__20_chrome_twitter', 'zhoujie__22_chrome_amazon', 'zhoujie__23_chrome_agar'],
+                 }
+
+xiaopiliang = {   'platform':['mac_', 'shenzhou_', 'hp_', 'windows_'],
+                    'apps':['05_work_word',
+                            '08_social_wechat',
+                            '13_game_zuma',
+                            '16_picture_win3d',
+                            '17_chrome_surfing'],
+                    'users':['lanqing', 'panhao']}
+
+train_folders = train_folders
 
 # 采样
-sample_rate = 10  # 单位是毫秒 ，>=1
+sample_rate = 5  # 单位是毫秒 ，>=1
 epochs, n_splits = 2 , 10  # 10折交叉验证和epoch数量固定
-train_data_rate = 0.03  # 使用处理后数据比例，用于减小训练数据使用的样本数(训练预测阶段)
+train_data_rate = 0.005  # 使用处理后数据比例，用于减小训练数据使用的样本数(训练预测阶段)
 train_batch_size = 500
 
 dict_all_parameters['sample_rate'] = sample_rate
@@ -55,9 +97,9 @@ test_ratio, evaluation_ratio = 0.2, 0.1  # 划分训练、测试、验证集
 dict_all_parameters['test_ratio'] = test_ratio
 dict_all_parameters['evaluation_ratio'] = evaluation_ratio
 
-window_length_list = [2, 5, 10, 20, 50, 100, 500]  # 窗口大小
-batch_size_list = [2, 5, 10, 20, 50]  # 训练 batch大小
-units_list = [2, 5, 10, 20, 50, 200]  # int(MAX_NB_VARIABLES / 2)
+window_length_list = [2]  # [2, 5, 10, 20, 100]  # 窗口大小
+batch_size_list = [2]  # [2, 5, 10]  # 训练 batch大小
+units_list = [10]  # [20, 10, 50, 200]  # int(MAX_NB_VARIABLES / 2)
 
 i = 0
 
@@ -67,13 +109,15 @@ if os.path.exists(train_info_file):
     os.remove(train_info_file)
     
 fid = open(train_info_file, 'a')
-fid.write('Index,totalRunTime,dataSet,CLASS,sample_rate,train_data_rate,window_length,batch_size,units,MAX_NB_VARIABLES,\
+fid.write('Index,dataSet,totalRunTime,CLASS,sample_rate,train_data_rate,window_length,batch_size,units,MAX_NB_VARIABLES,\
     knn_acc,rf_acc,time_tr,lstm_acc,time_lstm,fcn_acc,time_fcn')
 fid.write('\n')
 fid.close()
                 
 ###### 循环遍历
 for train_folder in train_folders:
+    
+    # train_folder = 'all'
     
     ##### 生成固定参数
     train_keyword, train_folder, test_folder, predict_folder, train_tmp, test_tmp, predict_tmp, \
@@ -130,8 +174,8 @@ for train_folder in train_folders:
 
                 # fid.write('Index,dataSet,CLASS,sample_rate,train_data_rate,window_length,batch_size,units,MAX_NB_VARIABLES')
                 metrix = '%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f' % (accuracy_all_list[0], accuracy_all_list[1], t1, \
-                                                            np.mean(s1), t2, \
-                                                            np.mean(accuracy_all), t3)
+                                                            np.max(s1), t2, \
+                                                            np.max(accuracy_all), t3)
                 fid.write(metrix)
 
 

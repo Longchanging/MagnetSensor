@@ -159,19 +159,21 @@ def train_fcn():
 
 
     ##### 注意到十折交叉验证好像不可行，集群上已经改为训epoch
-    for train_index, test_index in skf_cv.split(X, y):
-        
+    for i in range(2):   
         i += 1
-        print('============    第  %d 折交叉验证            =====================' % i)
-        X_train, X_test = X[train_index], X[test_index]
-        y_train, y_test_org = y[train_index], y[test_index]
+        print('\n============    第  %d 次训练     =====================\n' % i)
+        
+        # X_train, X_test = X[train_index], X[test_index]
+        # y_train, y_test_org = y[train_index], y[test_index]
         
         print(dict(Counter(y_train[:, 0])))
         weight_dict = get_weight(list(y_train[:, 0]))
         
-        y_train = keras.utils.to_categorical(y_train)
-        
-        X_train, X_validate, y_train, y_validate = train_evalation_split(X_train, y_train)
+        y_train_new = keras.utils.to_categorical(y_train)
+        y_test = keras.utils.to_categorical(y_test_left)
+
+
+        X_train__, X_validate, y_train_new__, y_validate = train_evalation_split(X_train, y_train_new)
         
         reduce_lr = ReduceLROnPlateau(monitor=monitor, patience=100, mode=optimization_mode,
                                       factor=factor, cooldown=0, min_lr=1e-4, verbose=2)
@@ -180,15 +182,17 @@ def train_fcn():
         if compile_model:
             model.compile(optimizer=optm, loss='categorical_crossentropy', metrics=['accuracy'])
     
-        model.fit(X_train, y_train, batch_size=train_batch_size, epochs=epochs, callbacks=callback_list, class_weight=weight_dict, \
-                   verbose=1, validation_data=(X_validate, y_validate))
+        model.fit(X_train__, y_train_new__, batch_size=train_batch_size, epochs=1000, callbacks=callback_list,
+                  class_weight=weight_dict, verbose=1, validation_data=(X_validate, y_validate))
         
-        predict_y = model.predict(X_test) 
+        predict_y = model.predict(X_test_left) 
         predict_y = oneHot2List(predict_y)
-         
+        y_test_fn = oneHot2List(y_test)
+
+
         # precise = metrics.average_precision_score(y_test_org, predict_y)
         # report = metrics.classification_report()
-        _, _, F1Score, _, accuracy_all = validatePR(predict_y, y_test_org[:, 0])
+        _, _, F1Score, _, accuracy_all = validatePR(predict_y, y_test_fn)
         print (' \n accuracy_all: \n', accuracy_all, '\F1Score:  \n', F1Score)  # judge model,get score
         # print('report:', report)
         
